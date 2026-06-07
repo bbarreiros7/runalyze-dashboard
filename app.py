@@ -7,6 +7,7 @@ import plotly.express as px
 st.set_page_config(page_title="Runalyze Dashboard", layout="wide")
 
 st.title("🏃 Runalyze Dashboard")
+st.write("VERSAO 2")
 
 uploaded = st.file_uploader("Upload do CSV do Runalyze", type=["csv"])
 
