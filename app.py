@@ -53,12 +53,16 @@ if uploaded:
         .reset_index()
     )
 
-    monthly = (
-        df.set_index("time")
-        .resample("M")
-        .agg({"distance_km": "sum"})
-        .reset_index()
-    )
+    df["time"] = pd.to_datetime(df["time"], errors="coerce")
+df = df.dropna(subset=["time"])
+
+monthly = (
+    df.groupby(df["time"].dt.to_period("M"))["distance_km"]
+    .sum()
+    .reset_index()
+)
+
+monthly["time"] = monthly["time"].astype(str)
 
     st.subheader("Distância Semanal")
     st.plotly_chart(
